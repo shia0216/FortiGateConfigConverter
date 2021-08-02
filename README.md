@@ -1,1 +1,5 @@
 # FortiGateConfigConverter
+FortiGateの設定ファイルからポリシーやアドレスオブジェクトを抽出し、CLIの構文からTSVへ変換するスクリプト。
+
+- FortiGateの設定ファイルからTSV形式へ変換
+- TSV形式で記述した設定をFortiGateのCLIで流し込める設定に変換
