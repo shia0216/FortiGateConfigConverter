@@ -47,15 +47,15 @@ class FortiGateConfigConverter:
         return policies
 
     @staticmethod
-    def convert_tsv(target: dict, delimiter="\n") -> str:
+    def convert_wsv(target: dict, sepalater="\t", delimiter="\n") -> str:
         rows = []
         for rule in target['rules']:
             row = []
             for column in target['columns']:
-                s = delimiter.join(rule[column])
-                cell = s if column in rule.keys() else '-'
+                key_exist = True if column in rule.keys() else False
+                cell = delimiter.join(rule[column]) if key_exist else '-'
                 row.append(f'"{cell}"')
-            rows.append("\t".join(row))
+            rows.append(sepalater.join(row))
         return "\n".join(rows)
 
 
@@ -64,4 +64,4 @@ if __name__ == '__main__':
         fgcc = FortiGateConfigConverter(path)
         tsv = path.replace('.conf', '.tsv')
         with open(tsv, 'w', encoding='UTF-8') as f:
-            f.write(FortiGateConfigConverter.convert_tsv(fgcc.policy))
+            f.write(FortiGateConfigConverter.convert_wsv(fgcc.policy))
